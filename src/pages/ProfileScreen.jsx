@@ -1,58 +1,42 @@
 import React, { useState } from "react";
-import { FiUser, FiMessageSquare, FiUsers, FiDollarSign, FiEdit, FiShare2, FiLogOut, FiMail } from "react-icons/fi";
-import { FaTrophy, FaGamepad } from "react-icons/fa";
-import { IoMdPerson } from "react-icons/io";
+import { FiEdit, FiShare2, FiLogOut, FiMail } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import BackgroundBubbles from "../components/BackgroundBubbles";
-// import ChatOverlay from "../components/ChatOverlay";
+
+import mainProfileIcon from '../assets/main-profile.png';
+import profileIcon from '../assets/profile.png';
+import friendsIcon from '../assets/friends.png';
+import walletIcon from '../assets/wallet.png';
+import gamesPlayedIcon from '../assets/gamesPlayed.png';
+import coinsIcon from '../assets/coins.png';
+import earnCoinsIcon from '../assets/earnCoins.png';
+import statsFriendsIcon from '../assets/stats-friends.png';
+import kycStatusIcon from '../assets/kycStatus.png';
+import editInfoIcon from '../assets/eidtInfo.png';
+import emailIcon from '../assets/email.png';
+import shareIcon from '../assets/share.png';
+import trophyIcon from '../assets/Trophy1.png';
 
 const ProfileScreen = () => {
   // Navigation state
   const [activeSection, setActiveSection] = useState('profile');
   const [activeProfileAction, setActiveProfileAction] = useState(null);
-  const [selectedChat, setSelectedChat] = useState(null);
+  
+  // User stats state
+  const [userStats, setUserStats] = useState({
+    wins: 120,
+    coins: 5000,
+    matches: 1234,
+    friends: 89,
+    tasks: [
+      { id: 1, name: 'Daily Login', reward: 50, completed: false },
+      { id: 2, name: 'Watch Ad', reward: 25, completed: false },
+      { id: 3, name: 'Invite Friends', reward: 100, completed: false },
+      { id: 4, name: 'Complete Tutorial', reward: 75, completed: false },
+      { id: 5, name: 'Play 5 Matches', reward: 150, completed: false },
+    ]
+  });
   const navigate = useNavigate();
-
-  // Mock data for friends with recent chats
-  const [friendsWithChats] = useState([
-    {
-      id: 1,
-      name: 'Alex Johnson',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-      lastMessage: 'Hey, how are you doing?',
-      time: '2h ago',
-      unread: 3,
-      online: true
-    },
-    {
-      id: 2,
-      name: 'Sarah Williams',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-      lastMessage: 'Let\'s catch up soon!',
-      time: '1d ago',
-      unread: 0,
-      online: true
-    },
-    {
-      id: 3,
-      name: 'Michael Chen',
-      avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
-      lastMessage: 'Thanks for the help!',
-      time: '2d ago',
-      unread: 0,
-      online: false
-    },
-    {
-      id: 4,
-      name: 'Emma Davis',
-      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-      lastMessage: 'See you tomorrow!',
-      time: '3d ago',
-      unread: 1,
-      online: false
-    }
-  ]);
 
   const handleNavClick = (section) => {
     if (section === 'wallet') {
@@ -94,16 +78,31 @@ const ProfileScreen = () => {
   };
 
   return (
-    <div className="min-h-screen w-full text-white overflow-x-hidden relative" style={{
-      background: 'linear-gradient(to bottom, #0A2472 0%, #0D47A1 45%, #1565C0 100%)'
+    <div className="min-h-screen w-full overflow-x-hidden relative" style={{
+      background: 'linear-gradient(to bottom, #0A2472 0%, #0D47A1 45%, #1565C0 100%)',
+      color: '#1a1a1a', // Dark text color by default
+      paddingBottom: '6rem' // Add padding to prevent content from being hidden behind the fixed navbar
     }}>
-      {/* Background blur when chat is open */}
-      {selectedChat && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-20"></div>
-      )}
+      <Navbar />
       
-      {/* Background Bubbles Component */}
-      <BackgroundBubbles blur={!!selectedChat} />
+      {/* Decorative background bubbles */}
+      <div className={`fixed inset-0 overflow-hidden z-0 pointer-events-none`}>
+        {/* Large bubbles */}
+        <div className="absolute -top-48 -left-48 w-96 h-96 bg-blue-400 rounded-full opacity-20 animate-float"></div>
+        <div className="absolute top-1/4 -right-24 w-72 h-72 bg-blue-300 rounded-full opacity-15 animate-float animation-delay-2000"></div>
+        <div className="absolute bottom-1/4 -left-16 w-80 h-80 bg-blue-500 rounded-full opacity-15 animate-float animation-delay-3000"></div>
+        
+        {/* Medium bubbles */}
+        <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-blue-300 rounded-full opacity-20 animate-float animation-delay-1000"></div>
+        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-blue-400 rounded-full opacity-20 animate-float animation-delay-1500"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-56 h-56 bg-blue-200 rounded-full opacity-20 animate-float animation-delay-2500"></div>
+        
+        {/* Small bubbles */}
+        <div className="absolute top-1/5 right-1/3 w-24 h-24 bg-blue-300 rounded-full opacity-20 animate-float animation-delay-500"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-28 h-28 bg-blue-400 rounded-full opacity-20 animate-float animation-delay-1000"></div>
+        <div className="absolute top-3/4 right-1/5 w-32 h-32 bg-blue-200 rounded-full opacity-20 animate-float animation-delay-1500"></div>
+        <div className="absolute bottom-1/5 right-1/4 w-24 h-24 bg-blue-300 rounded-full opacity-20 animate-float animation-delay-2000"></div>
+      </div>
       
       {/* Add animation keyframes and gradient border styles */}
       <style dangerouslySetInnerHTML={{
@@ -147,25 +146,16 @@ const ProfileScreen = () => {
         `
       }} />
 
-      {/* Chat Overlay */}
-      {selectedChat && (
-        <ChatOverlay
-          friend={getSelectedFriend()}
-          onClose={() => setSelectedChat(null)}
-          onSendMessage={handleSendMessage}
-        />
-      )}
-
       {/* Main content */}
-      <div className={`relative z-10 pt-16 pb-20 px-4 ${selectedChat ? 'opacity-50 pointer-events-none' : ''}`}>
+      <div className="relative z-10">
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto pb-20 md:pb-4">
+        <div className={`${activeSection === 'friends' ? 'h-screen overflow-y-auto' : 'overflow-hidden'} pt-16 pb-20 px-4 md:pb-4`}>
           {/* Profile header */}
           <div className="pt-16 pb-8 px-6 text-center">
             {/* Profile picture - responsive sizing */}
             <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 rounded-full bg-yellow-300 flex items-center justify-center overflow-hidden">
               <img 
-                src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" 
+                src={mainProfileIcon}
                 alt="Profile" 
                 className="w-16 h-16 object-contain"
               />
@@ -175,41 +165,38 @@ const ProfileScreen = () => {
             <div className="flex justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-6 sm:mb-8 px-4 max-w-2xl mx-auto w-full">
               {[
                 { 
-                  icon: <FiUser />, 
-                  label: "Account",
+                  icon: <img src={profileIcon} alt="Profile" className="w-7 h-7 sm:w-8 sm:h-8 object-contain" />, 
+                  label: "Profile",
                   id: 'profile'
                 },
                 { 
-                  icon: <FiMessageSquare />, 
-                  label: "Chat",
-                  id: 'chat'
-                },
-                { 
-                  icon: <FiUsers />, 
+                  icon: <img src={friendsIcon} alt="Friends" className="w-10 h-8 sm:w-12 sm:h-10 object-contain -mt-1" />, 
                   label: "Friends",
                   id: 'friends'
                 },
                 { 
-                  icon: <FiDollarSign />, 
+                  icon: <img src={earnCoinsIcon} alt="Earn Coins" className="w-7 h-7 sm:w-8 sm:h-8 object-contain" />, 
+                  label: "Earn Coins",
+                  id: 'earn-coins'
+                },
+                { 
+                  icon: <img src={walletIcon} alt="Wallet" className="w-7 h-7 sm:w-8 sm:h-8 object-contain" />, 
                   label: "Wallet",
                   id: 'wallet'
                 }
               ].map((item) => (
-                <div key={item.id} className="flex flex-col items-center flex-1 max-w-[80px] sm:max-w-none">
+                <div key={item.id} className="flex flex-col items-center flex-1 max-w-[90px] sm:max-w-[100px]">
                   <button 
                     onClick={() => handleNavClick(item.id)}
-                    className={`w-12 h-12 sm:w-14 sm:h-14 p-2 sm:p-3 rounded-full transition-all duration-200 
-                    focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-blue-600
-                    transform hover:scale-105 active:scale-95
-                    ${activeSection === item.id ? 'bg-blue-400' : 'bg-blue-500/90 hover:bg-blue-400'}`}
+                    className={`w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center rounded-lg transition-all duration-200 
+                    focus:outline-none border-2 ${activeSection === item.id ? 'border-blue-400 bg-blue-500/10' : 'border-white/20 hover:border-white/40'}
+                    transform hover:scale-105 active:scale-95`}
                   >
-                    <div className="w-full h-full flex items-center justify-center">
-                      {React.cloneElement(item.icon, { 
-                        className: `w-5 h-5 sm:w-6 sm:h-6 ${activeSection === item.id ? 'scale-110' : ''} transition-transform` 
-                      })}
-                    </div>
+                    {React.cloneElement(item.icon, { 
+                      className: `w-7 h-7 sm:w-8 sm:h-8 ${activeSection === item.id ? 'text-blue-400 scale-110' : 'text-white/80'} transition-transform` 
+                    })}
                   </button>
-                  <span className={`text-xs sm:text-sm mt-1.5 whitespace-nowrap transition-colors ${activeSection === item.id ? 'text-white font-medium' : 'text-white/80'}`}>
+                  <span className={`text-sm sm:text-base mt-2 whitespace-nowrap transition-colors ${activeSection === item.id ? 'text-white font-medium' : 'text-white/80'}`}>
                     {item.label}
                   </span>
                 </div>
@@ -217,154 +204,198 @@ const ProfileScreen = () => {
             </div>
           </div>
 
-        {/* Stats cards */}
-        <div className="bg-white rounded-3xl p-4 sm:p-6 flex-1 max-w-2xl mx-auto w-full mt-4">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
-            {/* Wins */}
-            <div className="relative p-4 rounded-xl gradient-border bg-white">
-              <div className="relative z-10">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
-                    <FaTrophy className="text-yellow-500" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-bold text-gray-800 text-lg">120</div>
-                    <div className="text-xs text-gray-600">Wins</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Coins */}
-            <div className="relative p-4 rounded-xl gradient-border bg-white">
-              <div className="relative z-10">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
-                    <FiDollarSign className="text-blue-500" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-bold text-gray-800 text-lg">5,000</div>
-                    <div className="text-xs text-gray-600">Coins</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Matches Played */}
-            <div className="relative p-4 rounded-xl gradient-border bg-white">
-              <div className="relative z-10">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
-                    <FaGamepad className="text-purple-500" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-bold text-gray-800 text-lg">1,234</div>
-                    <div className="text-xs text-gray-600">Matches</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Friends */}
-            <div className="relative p-4 rounded-xl gradient-border bg-white">
-              <div className="relative z-10">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
-                    <IoMdPerson className="text-green-500 text-xl" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-bold text-gray-800 text-lg">89</div>
-                    <div className="text-xs text-gray-600">Friends</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
         {/* Main Content Sections */}
-        <div className="px-4 max-w-2xl mx-auto w-full">
+        <div className="max-w-2xl mx-auto w-full">
+          {/* Earn Coins Section */}
+          {activeSection === 'earn-coins' && (
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 animate-fade-in">
+              <h2 className="text-xl font-bold mb-4 text-white">Earn Free Coins</h2>
+              <div className="space-y-4">
+                {userStats.tasks.map((task) => (
+                  <div key={task.id} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
+                    <div>
+                      <h3 className="font-medium text-white">{task.name}</h3>
+                      <p className="text-sm text-yellow-300">+{task.reward} coins</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        if (!task.completed) {
+                          const updatedTasks = userStats.tasks.map(t => 
+                            t.id === task.id ? {...t, completed: true} : t
+                          );
+                          setUserStats(prev => ({
+                            ...prev,
+                            tasks: updatedTasks,
+                            coins: prev.coins + task.reward
+                          }));
+                        }
+                      }}
+                      disabled={task.completed}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                        task.completed 
+                          ? 'bg-green-500/20 text-green-300 cursor-default' 
+                          : 'bg-yellow-500 hover:bg-yellow-600 text-white'
+                      }`}
+                    >
+                      {task.completed ? 'Claimed' : 'Claim'}
+                    </button>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-6 p-4 bg-blue-500/10 rounded-lg border border-blue-400/30">
+                <h3 className="font-medium text-blue-200 mb-2">Your Balance</h3>
+                <div className="flex items-center">
+                  <img src={coinsIcon} alt="Coins" className="w-6 h-6 mr-2" />
+                  <span className="text-2xl font-bold text-yellow-300">{userStats.coins.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Profile Section */}
           {activeSection === 'profile' && (
-            <div className="gradient-border rounded-2xl p-1 mt-6 w-full">
-              <div className="bg-white rounded-2xl p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Profile Information</h2>
-                <div className="bg-white rounded-2xl overflow-hidden">
-                  {[
-                    { 
-                      icon: <FiMail className="text-blue-600 group-hover:text-white transition-colors" />, 
-                      text: "Email",
-                      id: 'email',
-                      action: 'email'
-                    },
-                    { 
-                      icon: <FiEdit className="text-blue-600 group-hover:text-white transition-colors" />, 
-                      text: "Edit Info",
-                      id: 'edit',
-                      action: 'edit'
-                    },
-                    { 
-                      icon: <FiShare2 className="text-blue-600 group-hover:text-white transition-colors" />, 
-                      text: "Referrals",
-                      id: 'referrals',
-                      action: 'referrals'
-                    },
-                    { 
-                      icon: <span className="text-blue-600 font-bold group-hover:text-white transition-colors">KYC</span>, 
-                      text: "KYC Status",
-                      id: 'kyc',
-                      action: 'kyc'
-                    },
-                    { 
-                      icon: <FiLogOut className="text-red-500 group-hover:text-white transition-colors" />, 
-                      text: "Log Out",
-                      id: 'logout',
-                      action: 'logout',
-                      isDanger: true
-                    }
-                  ].map((item, index, array) => (
-                    <React.Fragment key={item.id}>
-                      <button 
-                        onClick={() => handleProfileAction(item.action)}
-                        disabled={activeProfileAction === item.action}
-                        className={`w-full text-left flex items-center p-4 transition-all duration-200 focus:outline-none group
-                          ${activeProfileAction === item.action 
-                            ? 'bg-blue-100 scale-[0.98]' 
-                            : 'hover:bg-blue-50 active:bg-blue-100'}
-                          ${item.isDanger ? 'hover:bg-red-50 active:bg-red-100' : ''}
-                        `}
-                      >
-                        <div className={`w-10 h-10 flex items-center justify-center mr-3 rounded-full transition-colors ${
-                          activeProfileAction === item.action 
-                            ? 'bg-blue-100' 
-                            : item.isDanger 
-                              ? 'bg-red-50 group-hover:bg-red-100' 
-                              : 'bg-blue-50 group-hover:bg-blue-100'
-                        }`}>
-                          {item.icon}
+            <div className="gradient-border rounded-t-2xl md:rounded-2xl mt-6 w-full">
+              <div className="bg-white rounded-t-2xl md:rounded-2xl p-4 sm:p-6">
+                {/* Stats Cards */}
+                <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-6">
+                  {/* Wins */}
+                  <div className="relative p-1 rounded-xl gradient-border bg-white">
+                    <div className="relative bg-white p-2 rounded-lg">
+                      <div className="flex items-center space-x-2 sm:space-x-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
+                          <img src={trophyIcon} alt="Wins" className="w-8 h-8 sm:w-10 sm:h-10" />
                         </div>
-                        <div className={`flex-1 text-left text-sm sm:text-base font-medium transition-colors ${
-                          item.isDanger ? 'text-red-600' : 'text-gray-800'
-                        }`}>
-                          {item.text}
+                        <div className="min-w-0">
+                          <div className="font-bold text-gray-800 text-base sm:text-lg md:text-xl truncate">{userStats.wins.toLocaleString()}</div>
+                          <div className="text-xs sm:text-sm font-medium text-gray-600 truncate">Wins</div>
                         </div>
-                        <div className={`transition-transform ${activeProfileAction === item.action ? 'scale-90' : ''}`}>
-                          <div className={`w-5 h-5 flex items-center justify-center rounded-full ${
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Coins */}
+                  <div className="relative p-1 rounded-xl gradient-border bg-white">
+                    <div className="relative bg-white p-2 rounded-lg">
+                      <div className="flex items-center space-x-2 sm:space-x-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
+                          <img src={coinsIcon} alt="Coins" className="w-8 h-8 sm:w-10 sm:h-10" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-bold text-gray-800 text-base sm:text-lg md:text-xl truncate">{userStats.coins.toLocaleString()}</div>
+                          <div className="text-xs sm:text-sm font-medium text-gray-600 truncate">Coins</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Matches Played */}
+                  <div className="relative p-1 rounded-xl gradient-border bg-white">
+                    <div className="relative bg-white p-2 rounded-lg">
+                      <div className="flex items-center space-x-2 sm:space-x-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
+                          <img src={gamesPlayedIcon} alt="Matches Played" className="w-8 h-8 sm:w-10 sm:h-10" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-bold text-gray-800 text-base sm:text-lg md:text-xl truncate">{userStats.matches.toLocaleString()}</div>
+                          <div className="text-xs sm:text-sm font-medium text-gray-600 truncate">Matches</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Friends */}
+                  <div className="relative p-1 rounded-xl gradient-border bg-white">
+                    <div className="relative bg-white p-2 rounded-lg">
+                      <div className="flex items-center space-x-2 sm:space-x-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center bg-blue-50 rounded-lg">
+                          <img src={statsFriendsIcon} alt="Friends" className="w-8 h-8 sm:w-10 sm:h-10" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-bold text-gray-800 text-base sm:text-lg md:text-xl truncate">{userStats.friends.toLocaleString()}</div>
+                          <div className="text-xs sm:text-sm font-medium text-gray-600 truncate">Friends</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Profile Actions */}
+                <div className="relative p-1 rounded-xl gradient-border bg-white mt-6">
+                  <div className="rounded-xl overflow-hidden bg-white">
+                    {[
+                      { 
+                        icon: <img src={emailIcon} alt="Email" className="w-6 h-5" />, 
+                        text: "Email",
+                        id: 'email',
+                        action: 'email'
+                      },
+                      { 
+                        icon: <img src={editInfoIcon} alt="Edit Info" className="w-5 h-5" />, 
+                        text: "Edit Info",
+                        id: 'edit',
+                        action: 'edit'
+                      },
+                      { 
+                        icon: <img src={shareIcon} alt="Share" className="w-5 h-5" />, 
+                        text: "Referrals",
+                        id: 'referrals',
+                        action: 'referrals'
+                      },
+                      { 
+                        icon: <img src={kycStatusIcon} alt="KYC Status" className="w-5 h-5" />, 
+                        text: "KYC Status",
+                        id: 'kyc',
+                        action: 'kyc'
+                      },
+                      { 
+                        icon: <FiLogOut className="text-red-500 group-hover:text-white transition-colors" />, 
+                        text: "Log Out",
+                        id: 'logout',
+                        action: 'logout',
+                        isDanger: true
+                      }
+                    ].map((item, index, array) => (
+                      <React.Fragment key={item.id}>
+                        <button 
+                          onClick={() => handleProfileAction(item.action)}
+                          disabled={activeProfileAction === item.action}
+                          className={`w-full text-left flex items-center p-4 transition-all duration-200 focus:outline-none group
+                            ${activeProfileAction === item.action 
+                              ? 'bg-blue-50' 
+                              : 'hover:bg-gray-50 active:bg-gray-100'}
+                            ${item.isDanger ? 'hover:bg-red-50 active:bg-red-100' : ''}`}
+                        >
+                          <div className={`w-10 h-10 flex items-center justify-center mr-3 rounded-full transition-colors ${
                             activeProfileAction === item.action 
-                              ? 'bg-blue-600 text-white' 
+                              ? 'bg-blue-100' 
+                              : item.isDanger 
+                                ? 'bg-red-50 group-hover:bg-red-100' 
+                                : 'bg-blue-50 group-hover:bg-blue-100'
+                          }`} style={{ minWidth: '2.5rem' }}>
+                            {item.icon}
+                          </div>
+                          <div className="flex-1 text-left">
+                            <div className={`font-medium ${item.isDanger ? 'text-red-600' : 'text-gray-800'}`}>
+                            {item.text}
+                          </div>
+                          </div>
+                          <div className={`text-lg transition-transform duration-200 ${
+                            activeProfileAction === item.action 
+                              ? 'text-blue-400' 
                               : 'text-gray-400 group-hover:text-blue-600'
                           }`}>
                             &gt;
                           </div>
-                        </div>
-                      </button>
-                      {index < array.length - 1 && (
-                        <div className="flex justify-center px-4 py-1">
-                          <div className="w-11/12 h-px bg-gray-400"></div>
-                        </div>
-                      )}
-                    </React.Fragment>
-                  ))}
+                        </button>
+                        {index < array.length - 1 && (
+                          <div className="px-4">
+                            <div className="w-full h-[1px] bg-[#0D47A1] bg-opacity-30"></div>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -524,8 +555,9 @@ const ProfileScreen = () => {
       </div>
       
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 z-20 md:static md:mt-8">
-        <div className="max-w-2xl mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 z-20 overflow-hidden md:static md:mt-8">
+        <div className="max-w-2xl mx-auto relative">
+          <div className="absolute inset-0 bg-darkBlueGradient rounded-t-2xl md:rounded-lg -z-10"></div>
           <Navbar />
         </div>
       </div>

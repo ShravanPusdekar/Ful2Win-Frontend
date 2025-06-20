@@ -2,6 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Styles for ProfileScreen */
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Animation for floating elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(10px); }
+}
+
+/* Gradient border effect */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  padding: 2px;
+  border-radius: 1rem;
+}
+
+/* Profile stats cards */
+.stats-card {
+  @apply bg-white rounded-xl p-4 shadow-md transition-all duration-300 hover:shadow-lg;
+}
+
+/* Navigation button styles */
+.nav-button {
+  @apply flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-200;
+}
+
+.nav-button.active {
+  @apply bg-blue-100 border-blue-400;
+}
+
+/* Form input styles */
+.input-field {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-xl shadow-sm overflow-hidden;
+}
+
+/* Text styles */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400;
+}
+
+/* Utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
 /* Neon text effect */
 @keyframes neon-pulse {
   0%, 100% {
@@ -16,3 +85,42 @@
   animation: neon-pulse 2s ease-in-out infinite alternate;
   text-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 20px rgba(14, 165, 233, 0.6);
 }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-400 rounded-full hover:bg-blue-500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .stats-grid {
+    @apply grid-cols-2 gap-2;
+  }
+  
+  .nav-buttons {
+    @apply gap-1;
+  }
+  
+  .nav-button {
+    @apply p-1 text-xs;
+  }
+}
+
+/* Animation for floating elements */
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-1 { animation-delay: 0s; }
+.floating-2 { animation-delay: 1s; }
+.floating-3 { animation-delay: 2s; }
+.floating-4 { animation-delay: 3s; }
